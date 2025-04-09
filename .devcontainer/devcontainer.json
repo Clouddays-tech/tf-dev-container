@@ -1,0 +1,34 @@
+{
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "terraform-modules-library",
+  "workspaceFolder": "/app",
+  "postStartCommand": {
+    "init-git": "rm -rf ${containerWorkspaceFolder}/.git && git init",
+    "set-git-config-safe-directory": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+    "set-git-config-line-endings": "git config --global core.autocrlf input",
+    "set-git-config-gpg-program": "git config --global --add gpg.program /usr/bin/gpg",
+    "add-run-dot-sh-to-path": "ln -s ${containerWorkspaceFolder}/run.sh ~/.local/bin/run.sh",
+    "activate-zsh-profile": "source ~/.zshrc && omz theme set cloud",
+    "create-terraform-plugin-cache-dir": "mkdir -p $HOME/.terraform.d/plugin-cache",
+    "pre-commit-install": "pre-commit install"
+  },
+  "postAttachCommand": {
+    "print-message-of-the-day": "bash /etc/update-motd.d/00-header"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.fontSize": 16,
+        "terminal.integrated.fontSize": 16,
+        "terminal.integrated.scrollback": 1000
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "hashicorp.terraform",
+        "nhoizey.gremlins",
+        "hashicorp.hcl"
+      ]
+    }
+  }
+}
+

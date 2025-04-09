@@ -1,0 +1,37 @@
+---
+services:
+  terraform-modules-library:
+    tty: true
+    image: clouddays101/tf-dev-container:v1.1
+    # Build the container from the Dockerfile before we run it
+    # build:
+    #   context: .
+    #   dockerfile: ./Dockerfile
+    # network_mode: "bridge"
+    volumes:
+      # Mounts the project folder into the container
+      - ".:/app"
+      # Mount your ~/.ssh folder into the container
+      # for Authenticating to Github
+      # - "~/.ssh:/home/ubuntu/.ssh"
+      # For GPG Auth to Github
+      # - "~/.gnupg:/home/ubuntu/.gnupg"
+      # Add your .aws or .azure or .kube directories here
+      # - "$AZURE_CONFIG_DIR:/home/ubuntu/.azure"
+    working_dir: "/app"
+    environment:
+      - ARCH
+      # - ARM_CLIENT_ID
+      # - ARM_CLIENT_SECRET
+      # - ARM_SUBSCRIPTION_ID
+      # - ARM_TENANT_ID
+      # - ARM_PARTNER_ID
+      # - AWS_ACCESS_KEY_ID
+      # - AWS_SECRET_ACCESS_KEY
+      # - AWS_REGION
+      # - AWS_SESSION_TOKEN
+      # - GOOGLE_CREDENTIALS
+      - TF_LOG
+      - TGENV_AUTO_INSTALL=true
+      - GPG_TTY=/dev/pts/1
+      - TF_PLUGIN_CACHE_DIR=/home/ubuntu/.terraform.d/plugin-cache
